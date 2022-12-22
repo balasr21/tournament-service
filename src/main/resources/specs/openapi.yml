@@ -1,0 +1,278 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: Tennis Tournament Management API
+  description: Manage Tennis Tournament and matches
+  contact:
+    name: Balamurugan Radhakrishnan
+    email: balamurugan.radhakrishnan@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: https://api.img.com
+
+tags:
+  - name: tennis
+    description: Tennis Tournament Management
+
+paths:
+  /tournament:
+    post:
+      operationId: createTournament
+      tags:
+        - Tournament
+      summary: Create Tennis Tournament
+      requestBody:
+        required: true
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/CreateTournamentRequest'
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTournamentResponse'
+
+  /tournament/{tournamentId}:
+    get:
+      operationId: getTournamentById
+      tags:
+        - Tournament
+      summary: Get Tournament details by Id
+      parameters:
+        - name: tournamentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTournamentResponse'
+
+  /customer/{customerId}/matches:
+    patch:
+      operationId: updateCustomerLicense
+      tags:
+        - Customer-License
+      summary: Updates the license with new set of matches for the given customer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/UpdateLicenseRequest'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateLicenseResponse'
+
+  /customer:
+    post:
+      operationId: createCustomer
+      tags:
+        - Customer
+      summary: Creates a new customer
+      requestBody:
+        required: true
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerResponse'
+
+  /customer/{customerId}/licensed/matches:
+    get:
+      operationId: getCustomer
+      tags:
+        - Customer
+      summary: retrieves the customer details and the matches subscribed
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: customer id.
+          schema:
+            type: string
+            format: uuid
+        - name: summary
+          in: query
+          required: false
+          description: summary can be AvB/AvBTime.
+          schema:
+            type: string
+            enum:
+              - AvB
+              - AvBTime
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerMatchesResponse'
+
+
+components:
+  schemas:
+    Meta:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+        next:
+          type: string
+
+    PlayerDetails:
+      type: object
+      properties:
+        playerA:
+          type: string
+        playerB:
+          type: string
+
+    MatchDetails:
+      type: object
+      properties:
+        matchId:
+          type: string
+          format: uuid
+        startDateTime:
+          type: string
+          format: "date-time"
+        durationInMinutes:
+          type: integer
+          format: int64
+        playerA:
+          type: string
+        playerB:
+          type: string
+        summary:
+          type: string
+
+    CreateTournamentRequest:
+      type: object
+      properties:
+        tournamentType:
+          type: string
+          enum:
+            - TENNIS
+        startDateTime:
+          type: string
+          format: "date-time"
+        durationInDays:
+          type: integer
+          format: int64
+        match:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/MatchDetails"
+
+    CreateTournamentResponse:
+      type: object
+      properties:
+        tournamentId:
+          type: string
+          format: uuid
+        tournamentType:
+          type: string
+          enum:
+            - TENNIS
+        startDateTime:
+          type: string
+          format: "date-time"
+        duration:
+          type: integer
+          format: int64
+        match:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/MatchDetails"
+
+    CreateCustomerRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+          example: "2022-12-18"
+
+    CreateCustomerResponse:
+      type: object
+      properties:
+        customerId:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+
+    CustomerMatchesResponse:
+      type: object
+      properties:
+        meta:
+          "$ref": '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchDetails'
+
+    UpdateLicenseRequest:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+    UpdateLicenseResponse:
+      type: object
+      properties:
+        licenseId:
+          type: string
+        data:
+          type: array
+          items:
+            type: string
+            format: uuid

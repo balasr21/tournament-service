@@ -1,0 +1,21 @@
+spring:
+  r2dbc:
+    database: img-tournament-test-db
+    init.script: "init.sql"
+
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG
+        web: DEBUG
+
+    io:
+      r2dbc:
+        postgresql:
+          QUERY: DEBUG
+          PARAM: DEBUG
+        pool: DEBUG
+        spi: DEBUG

@@ -1,0 +1,36 @@
+server:
+  port: 8081
+
+springdoc:
+  swagger-u:
+    path: /swagger-ui-custom.html
+  api-docs:
+    path: /api-docs
+
+spring:
+  r2dbc:
+    host: localhost
+    port: 8082
+    database: img-tournament-db
+    username: local
+    password: local
+    pool:
+      initial-size: 10
+      max-size: 10
+      max-idle-time: 30
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG
+        web: DEBUG
+
+    io:
+      r2dbc:
+        postgresql:
+          QUERY: DEBUG
+          PARAM: DEBUG
+        pool: DEBUG
+        spi: DEBUG
