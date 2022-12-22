@@ -1,10 +1,5 @@
 package com.img.sports.tournament;
 
-import java.time.ZoneId;
-import java.util.TimeZone;
-
-import javax.annotation.PostConstruct;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -18,9 +13,4 @@ public class TournamentApplication {
         SpringApplication.run(TournamentApplication.class, args);
     }
 
-    @PostConstruct
-    public void init() {
-        // Setting Spring Boot SetTimeZone
-        TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.of("Asia/Calcutta")));
-    }
 }
