@@ -41,7 +41,7 @@ public class TournamentReadConverter implements Converter<Row, Tournament> {
     }
 
     private OffsetDateTime getOffsetDateTimeField(Row source, String fieldName) {
-        var value = getRowValue(source, fieldName, LocalDateTime.class);
-        return value == null ? null : value.atOffset(ZoneOffset.UTC);
+        var value = getRowValue(source, fieldName, OffsetDateTime.class);
+        return value != null ? value.atZoneSameInstant(ZoneOffset.UTC).toOffsetDateTime() : getRowValue(source, fieldName, LocalDateTime.class).atOffset(ZoneOffset.UTC);
     }
 }

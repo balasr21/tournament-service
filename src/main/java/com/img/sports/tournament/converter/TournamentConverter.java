@@ -16,6 +16,7 @@ public class TournamentConverter {
 
     /**
      * maps create tournament request to Tournament entity
+     *
      * @param tournamentRequest
      * @return
      */

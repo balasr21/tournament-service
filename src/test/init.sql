@@ -1,19 +1,18 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 DROP TABLE IF EXISTS tournament;
 CREATE TABLE tournament
 (
-    id uuid PRIMARY KEY UNIQUE DEFAULT uuid_generate_v4(),
+    id uuid NOT NULL DEFAULT RANDOM_UUID() PRIMARY KEY,
     tournament_type       varchar(255),
-    start_date_time  TIMESTAMP NOT NULL,
+    start_date_time  timestampz NOT NULL,
     duration_in_days bigint NOT NULL
 );
 
 DROP TABLE IF EXISTS match;
 CREATE TABLE match
 (
-    id uuid PRIMARY KEY UNIQUE DEFAULT uuid_generate_v4(),
-    start_date_time  TIMESTAMP NOT NULL,
+    id uuid NOT NULL DEFAULT RANDOM_UUID() PRIMARY KEY,
+    start_date_time  timestampz NOT NULL,
     duration_in_minutes bigint NOT NULL,
     player_a             varchar(255),
     player_b            varchar(255)
@@ -29,7 +28,7 @@ CREATE TABLE tournament_matches
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer
 (
-    id uuid PRIMARY KEY UNIQUE DEFAULT uuid_generate_v4(),
+    id uuid NOT NULL DEFAULT RANDOM_UUID() PRIMARY KEY,
     first_name       varchar(255),
     last_name       varchar(255),
     date_of_birth  DATE NOT NULL,

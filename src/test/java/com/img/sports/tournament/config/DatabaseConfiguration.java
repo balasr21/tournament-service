@@ -15,12 +15,14 @@ import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 
 import com.img.sports.tournament.converter.MatchReadConverter;
+import com.img.sports.tournament.converter.MatchWriteConverter;
 import com.img.sports.tournament.converter.TournamentReadConverter;
+import com.img.sports.tournament.converter.TournamentWriteConverter;
 
 import io.r2dbc.h2.H2ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactory;
 
-//@Configuration
+
 @TestConfiguration
 @EnableR2dbcRepositories
 public class DatabaseConfiguration extends AbstractR2dbcConfiguration {
@@ -52,7 +54,7 @@ public class DatabaseConfiguration extends AbstractR2dbcConfiguration {
     @Bean
     @Override
     public R2dbcCustomConversions r2dbcCustomConversions() {
-        List<Converter<?, ?>> converterList = List.of(new TournamentReadConverter(), new MatchReadConverter());
+        List<Converter<?, ?>> converterList = List.of(new TournamentReadConverter(), new MatchReadConverter(), new TournamentWriteConverter(), new MatchWriteConverter());
         return new R2dbcCustomConversions(getStoreConversions(), converterList);
     }
 

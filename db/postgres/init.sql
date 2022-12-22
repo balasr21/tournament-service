@@ -5,7 +5,7 @@ CREATE TABLE tournament
 (
     id uuid PRIMARY KEY UNIQUE DEFAULT uuid_generate_v4(),
     tournament_type       varchar(255),
-    start_date_time  TIMESTAMP NOT NULL,
+    start_date_time  timestamptz NOT NULL,
     duration_in_days bigint NOT NULL
 );
 
@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS match;
 CREATE TABLE match
 (
     id uuid PRIMARY KEY UNIQUE DEFAULT uuid_generate_v4(),
-    start_date_time  TIMESTAMP NOT NULL,
+    start_date_time  timestamptz NOT NULL,
     duration_in_minutes bigint NOT NULL,
     player_a             varchar(255),
     player_b            varchar(255)

@@ -12,7 +12,9 @@ import org.springframework.data.r2dbc.convert.R2dbcCustomConversions;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 import com.img.sports.tournament.converter.MatchReadConverter;
+import com.img.sports.tournament.converter.MatchWriteConverter;
 import com.img.sports.tournament.converter.TournamentReadConverter;
+import com.img.sports.tournament.converter.TournamentWriteConverter;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.r2dbc.pool.ConnectionPoolConfiguration;
@@ -64,7 +66,7 @@ public class DatabaseConfiguration extends AbstractR2dbcConfiguration {
     @Bean
     @Override
     public R2dbcCustomConversions r2dbcCustomConversions() {
-        List<Converter<?, ?>> converterList = List.of(new TournamentReadConverter(), new MatchReadConverter());
+        List<Converter<?, ?>> converterList = List.of(new TournamentReadConverter(), new MatchReadConverter(), new TournamentWriteConverter(), new MatchWriteConverter());
         return new R2dbcCustomConversions(getStoreConversions(), converterList);
     }
 }

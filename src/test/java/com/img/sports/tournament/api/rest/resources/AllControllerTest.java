@@ -60,8 +60,7 @@ class AllControllerTest {
     @Test
     void testTournament_all_endpoints_success() throws JsonProcessingException {
 
-        var matchStartDateTime = OffsetDateTime.parse("2022-12-22T02:30:00.533+01:00");
-        var matchStartDateTimeInAsiaZone = OffsetDateTime.parse("2022-12-22T12:30:00.533+05:30");
+        var matchStartDateTime = OffsetDateTime.now().plusDays(2);
         var playerA = "playerA";
         var playerB = "playerB";
         var matchDuration = 5l;
@@ -182,7 +181,7 @@ class AllControllerTest {
         Assertions.assertEquals(0, customerLicensedMatches.getMeta().getPage());
         Assertions.assertEquals(1, customerLicensedMatches.getData().size());
         Assertions.assertEquals(matchIds.get(0), customerLicensedMatches.getData().get(0).getMatchId());
-        Assertions.assertEquals(matchStartDateTimeInAsiaZone, customerLicensedMatches.getData().get(0).getStartDateTime());
+        Assertions.assertEquals(matchStartDateTime, customerLicensedMatches.getData().get(0).getStartDateTime());
         Assertions.assertEquals(matchDuration, customerLicensedMatches.getData().get(0).getDurationInMinutes());
         Assertions.assertEquals(playerA, customerLicensedMatches.getData().get(0).getPlayerA());
         Assertions.assertEquals(playerB, customerLicensedMatches.getData().get(0).getPlayerB());

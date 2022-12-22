@@ -182,7 +182,7 @@ The below are the list of tools and framework used in the project!
 3. Comprehensive Unit tests and Integration tests(including H2 database) which covers all the endpoints
 4. GET /customer/{customerId}/licensed/matches is provided a response payload which supports pagination, Currently this reports all the entries in page 0 but this can be enhanced to paginate the response in case the number of licensed matches for a customer is increasing
 5. All the POST, PATCH requests which creates or updates the resource accepts any valid offsetdatetime stamp but while storing in DB its stored in UTC
-6. All the GET endpoints which contains the match startDateTime is retrieved as UTC from the DB but displayed in system default timezone format. Integration test has a check for validating a different timezone
+6. All the GET endpoints which contains the match startDateTime is retrieved as UTC from the DB but displayed in system default timezone format. Integration is currently added only for UTC due to a limitation in H2 database for storing timestamp with zone
 
 
 ### 2.3 Solution & Assumptions
@@ -226,5 +226,6 @@ This postman collection is populated with variables which are automatically mana
 1. Pagination for *GET /customer/{customerId}/licensed/matches* endpoint
 2. Add spring security for the project
 3. Add docker for the app
+4. Add test for covering different timezone, this is currently not covered due to  limitation of h2 to store timestamp with zone
 
 

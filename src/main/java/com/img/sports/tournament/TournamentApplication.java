@@ -13,4 +13,12 @@ public class TournamentApplication {
         SpringApplication.run(TournamentApplication.class, args);
     }
 
+    // Can be uncommented to test for different timezones
+
+    /*@PostConstruct
+    public void init() {
+        // Setting Spring Boot SetTimeZone
+        TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.of("Asia/Calcutta")));
+    }*/
+
 }
