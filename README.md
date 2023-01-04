@@ -207,6 +207,13 @@ The open API spec content can be pasted and viewed at any swagger viewers like h
 
 ## 4.Run Application
 
+#### Pre-requisite
+Please bring up the postgres db instance by running the docker script in class path file name(docker-compose.yml)
+
+```
+docker-compose up -d    
+```
+
 This application is preconfigured with required properties and doesn't require any external properties to start
 
 #### 
@@ -224,7 +231,7 @@ This postman collection is populated with variables which are automatically mana
 ## 5. Future Enhancements
 
 1. Pagination for *GET /customer/{customerId}/licensed/matches* endpoint
-2. Add spring security for the project
+2. Add spring security for the project(may be use IAM)
 3. Add docker for the app
 4. Add test for covering different timezone, this is currently not covered due to  limitation of h2 to store timestamp with zone
 
